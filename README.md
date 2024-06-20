@@ -49,7 +49,7 @@ This project is a web application built with Django for the backend and React fo
 
 git clone https://github.com/roshandevkota/asyncproject
 
-cd <REPOSITORY_NAME>
+cd asyncproject
 
 ```
 
