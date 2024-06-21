@@ -20,8 +20,8 @@ from collections import defaultdict
 
 def get_meta(df_original, target_column, force_col_types=None):
     df_copy = df_original.copy()
-    if target_column in df_original.columns:
-        df_copy.rename(columns={target_column: 'target'}, inplace=True)
+    # if target_column in df_original.columns:
+    #     df_copy.rename(columns={target_column: 'target'}, inplace=True)
 
     data, meta = get_data(df_copy, force_col_types=force_col_types)
     return data, meta
@@ -175,9 +175,9 @@ def train_with_parameter_tuning_test(df_original, forced_types, target_column, n
     performance_score = None
 
     data, meta = get_meta(df_original, target_column, forced_types)
-    is_target_categorical = meta['target']['is_cat']
+    is_target_categorical = meta[target_column]['is_cat']
 
-    train_pool, test_pool, X_train, X_test, y_train, y_test, cat_features = split_train_test_pool(data, meta)
+    train_pool, test_pool, X_train, X_test, y_train, y_test, cat_features = split_train_test_pool(data, meta, target_column)
     print("meta",meta)
     print("X_train",X_train)
     print("X_test",X_test)
@@ -228,12 +228,12 @@ def train_with_parameter_tuning_test(df_original, forced_types, target_column, n
 
 
 
-def split_train_test_pool(data,meta):
-    X = data.drop('target', axis=1)
-    y = data['target']
+def split_train_test_pool(data, meta, target_column):
+    X = data.drop(target_column, axis=1)
+    y = data[target_column]
     X = X.applymap(lambda x: str(x) if isinstance(x, float) else x)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
-    cat_features = [col for col, info in meta.items() if info['is_cat'] and col != 'target']
+    cat_features = [col for col, info in meta.items() if info['is_cat'] and col != target_column]
     train_pool = Pool(X_train, label=y_train, cat_features=cat_features)
     test_pool = Pool(X_test, label=y_test, cat_features=cat_features)
     
@@ -343,7 +343,7 @@ def trans_data(df, meta, reverse=False):
             df_res[col] = res_list
     return df_res
 
-def make_prediction(input_df, model_path, meta_path):
+def make_prediction(input_df, model_path, meta_path, target_column):
     with open(meta_path, 'r') as file:
         loaded_meta = json.load(file)
 
@@ -353,11 +353,11 @@ def make_prediction(input_df, model_path, meta_path):
     with open(model_path, 'rb') as file:
         loaded_model = pickle.load(file)
 
-    if 'target' in input_df.columns:
-        input_df = input_df.drop('target', axis=1)
+    if target_column in input_df.columns:
+        input_df = input_df.drop(target_column, axis=1)
     predictions = loaded_model.predict(input_df)
     print("predictions",predictions)
-    input_df['target'] = predictions
+    input_df[target_column] = predictions
 
     predictionsdf = input_df
     print("predictionsdf",predictionsdf)

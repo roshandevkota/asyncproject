@@ -125,6 +125,8 @@ class GetMetadataView(APIView):
         
         # Check if metadata already exists
         if uploaded_file.model_metadata_path:
+            uploaded_file.target_column = target_column
+            uploaded_file.save()
             with open(uploaded_file.model_metadata_path, 'r') as f:
                 metadata = json.load(f)
             modified_metadata = None
@@ -164,6 +166,7 @@ class GetMetadataView(APIView):
             json.dump(convert_sets_to_lists(metadata), f)
 
         uploaded_file.model_metadata_path = metadata_path
+        uploaded_file.target_column = target_column
         uploaded_file.save()
 
         return Response({
@@ -387,7 +390,7 @@ class PredictView(APIView):
         if prediction_type == 'single':
             single_data = json.loads(request.data['single_data'])
             input_df = pd.DataFrame([single_data])
-            prediction_value = make_prediction(input_df, uploaded_file.model_path, meta_path)
+            prediction_value = make_prediction(input_df, uploaded_file.model_path, meta_path, uploaded_file.target_column)
             prediction_html = prediction_value.to_html(classes="table table-striped")
             return Response({'prediction_html': prediction_html}, status=status.HTTP_200_OK)
 
@@ -401,7 +404,7 @@ class PredictView(APIView):
                 return Response({'error': 'Failed to detect delimiter'}, status=status.HTTP_400_BAD_REQUEST)
 
             prediction_df = pd.read_csv(io.StringIO(prediction_file_content), delimiter=delimiter)
-            prediction_value = make_prediction(prediction_df, uploaded_file.model_path, meta_path)
+            prediction_value = make_prediction(prediction_df, uploaded_file.model_path, meta_path, uploaded_file.target_column)
             prediction_html = prediction_value.to_html(classes="table table-striped")
             custom_css = """<style> .table thead th { text-align: left !important; } </style>"""
 
