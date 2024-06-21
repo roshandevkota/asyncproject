@@ -1,1 +1,0 @@
-{"A": {"is_cat": false, "fill": "d", "conv": {"4": 0, "a": 1, "c": 2, "d": 3, "e": 4}}, "B": {"is_cat": false, "fill": 43.09200000166667}, "C": {"is_cat": true, "fill": "c", "conv": {"2": 0, "3": 1, "4": 2, "a": 3, "b": 4, "b,": 5, "c": 6, "d": 7}}, "D": {"known": [1.0, 2.0, 3.0], "is_cat": true, "fill": 1.0}, "target": {"known": [1.0, 2.0, 999.0], "is_cat": true, "fill": 1.0}}
