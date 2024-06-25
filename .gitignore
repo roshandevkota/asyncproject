@@ -4,4 +4,9 @@ db.sqlite3
 /media/uploads
 
 /catboost_info
+
+
+
+# Ignore __pycache__ directories and compiled Python files
+__pycache__/
 *.pyc
