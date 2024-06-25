@@ -30,9 +30,7 @@ def load_data_dynamic(file_path, delimiter=None):
     extension = file_path.split('.')[-1].lower()
     if extension in ['xlsx', 'xls']:
         return read_excel_file(file_path)
-    elif extension in ['csv']:
-        return read_text_or_csv(file_path)
-    elif extension in ['txt']:
+    elif extension in ['csv', 'txt']:
         if delimiter is None:
             delimiter = detect_separator(file_path)
         return read_text_or_csv(file_path, delimiter)
@@ -41,9 +39,6 @@ def load_data_dynamic(file_path, delimiter=None):
         return None
 
 def detect_separator(file_path):
-    extension = file_path.split('.')[-1].lower()
-    if extension in ['csv']:
-        return ','
     potential_delimiters = [',', '\t', ';', ' ']
     sample_size = 10
 
