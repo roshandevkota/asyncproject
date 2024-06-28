@@ -31,6 +31,15 @@ from django.conf import settings
 
 class FileUploadView(APIView):
     def post(self, request):
+        """
+        Handles the upload of a file, detects the delimiter, and caches the dataframe.
+
+        Args:
+            request (Request): The HTTP request object containing the uploaded file.
+
+        Returns:
+            Response: A response object containing metadata about the uploaded file.
+        """
         file = request.FILES['file']
         original_name = file.name
         uploaded_file = UploadedFile(file=file, original_name=original_name)
@@ -65,6 +74,15 @@ class FileUploadView(APIView):
 
 class DataPreviewView(APIView):
     def post(self, request):
+        """
+        Provides a preview of the first 10 rows of the uploaded data.
+
+        Args:
+            request (Request): The HTTP request object containing the file ID and delimiter.
+
+        Returns:
+            Response: A response object containing the data preview.
+        """
         file_id = request.data['file_id']
         delimiter = request.data['delimiter']
         uploaded_file = UploadedFile.objects.get(id=file_id)
@@ -93,6 +111,15 @@ class DataPreviewView(APIView):
 
 class ProfileDataView(APIView):
     def post(self, request):
+        """
+        Generates and returns a profiling report of the uploaded data.
+
+        Args:
+            request (Request): The HTTP request object containing the file ID.
+
+        Returns:
+            Response: A response object containing the path to the profiling report.
+        """
         file_id = request.data['file_id']
         uploaded_file = UploadedFile.objects.get(id=file_id)
 
@@ -119,6 +146,15 @@ class ProfileDataView(APIView):
 
 class GetMetadataView(APIView):
     def post(self, request):
+        """
+        Retrieves metadata of the uploaded data.
+
+        Args:
+            request (Request): The HTTP request object containing the file ID and target column.
+
+        Returns:
+            Response: A response object containing the metadata.
+        """
         file_id = request.data['file_id']
         target_column = request.data['target_column']
         uploaded_file = UploadedFile.objects.get(id=file_id)
@@ -179,6 +215,15 @@ class GetMetadataView(APIView):
 
 class UpdateMetadataView(APIView):
     def post(self, request):
+        """
+        Updates metadata of the uploaded data.
+
+        Args:
+            request (Request): The HTTP request object containing the file ID and modified metadata.
+
+        Returns:
+            Response: A response object containing the updated metadata.
+        """
         file_id = request.data['file_id']
         modified_metadata = request.data['modified_metadata']
         modified_metadata = convert_lists_to_sets(modified_metadata)
@@ -215,6 +260,15 @@ class UpdateMetadataView(APIView):
 
 class GetStoredMetadataView(APIView):
     def get(self, request):
+        """
+        Retrieves stored metadata for the specified file ID.
+
+        Args:
+            request (Request): The HTTP request object containing the file ID.
+
+        Returns:
+            Response: A response object containing the stored metadata.
+        """
         file_id = request.query_params.get('file_id')
         uploaded_file = UploadedFile.objects.get(id=file_id)
         with open(uploaded_file.model_metadata_path, 'r') as f:
@@ -245,6 +299,15 @@ class GetStoredMetadataView(APIView):
 
 class TrainModelView(APIView):
     def post(self, request):
+        """
+        Trains a model with the uploaded data and specified parameters.
+
+        Args:
+            request (Request): The HTTP request object containing the file ID, target column, and number of trials.
+
+        Returns:
+            Response: A response object containing the training information.
+        """
         file_id = request.data['file_id']
         target_column = request.data['target_column']
         num_trials = int(request.data.get('num_trials', 10))  # Ensure num_trials is an integer
@@ -308,6 +371,16 @@ class TrainModelView(APIView):
 
 class GetTrainingStatusView(APIView):
     def get(self, request, file_id):
+        """
+        Retrieves the training status of the model for the specified file ID.
+
+        Args:
+            request (Request): The HTTP request object.
+            file_id (str): The ID of the uploaded file.
+
+        Returns:
+            Response: A response object containing the training status.
+        """
         try:
             uploaded_file = UploadedFile.objects.get(id=file_id)
             if uploaded_file.model_trained:
@@ -335,6 +408,15 @@ class GetTrainingStatusView(APIView):
 
 class ColumnListView(APIView):
     def post(self, request):
+        """
+        Retrieves the list of columns in the uploaded data.
+
+        Args:
+            request (Request): The HTTP request object containing the file ID.
+
+        Returns:
+            Response: A response object containing the list of columns.
+        """
         file_id = request.data['file_id']
         uploaded_file = UploadedFile.objects.get(id=file_id)
 
@@ -365,6 +447,15 @@ class ColumnListView(APIView):
 
 class PredictView(APIView):
     def post(self, request):
+        """
+        Makes predictions using the trained model on new data.
+
+        Args:
+            request (Request): The HTTP request object containing the file ID and prediction type.
+
+        Returns:
+            Response: A response object containing the prediction results.
+        """
         file_id = request.data['file_id']
         prediction_type = request.data['prediction_type']
         uploaded_file = UploadedFile.objects.get(id=file_id)
@@ -436,12 +527,30 @@ class PredictView(APIView):
 
 class TestView(APIView):
     def post(self, request):
+        """
+        Returns a test message.
+
+        Args:
+            request (Request): The HTTP request object.
+
+        Returns:
+            Response: A response object containing a test message.
+        """
         return Response({'message': 'API is working!'}, status=status.HTTP_200_OK)
 
 
 class TaskStatusView(APIView):
     def get(self, request, task_id):
-        # For demo purposes, just returning a dummy response
+        """
+        Returns the status of the specified task.
+
+        Args:
+            request (Request): The HTTP request object.
+            task_id (str): The ID of the task.
+
+        Returns:
+            Response: A response object containing the task status.
+        """
         # You need to implement proper task status tracking if you have an async task queue
         return Response({'task_id': task_id, 'status': 'completed'}, status=status.HTTP_200_OK)
 
