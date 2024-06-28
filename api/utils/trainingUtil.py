@@ -13,12 +13,34 @@ import optuna
 from optuna.integration import CatBoostPruningCallback
 
 from collections import defaultdict
+from conversion import convert_lists_to_sets, convert_sets_to_lists
 
 
 
 
 
 def get_meta(df_original, target_column, force_col_types=None):
+    """
+    Generates metadata and preprocessed data from the original dataframe.
+
+    Args:
+        df_original (pd.DataFrame): The original dataframe.
+        target_column (str): The name of the target column.
+        force_col_types (dict, optional): Dictionary to force specific column types.
+
+    Returns:
+        tuple: A tuple containing the preprocessed dataframe and metadata dictionary.
+
+    Example:
+        >>> df = pd.DataFrame({'A': [1, 2, 3], 'B': ['x', 'y', 'z'], 'target': [0, 1, 0]})
+        >>> data, meta = get_meta(df, 'target')
+        >>> print(data)
+        >>> print(meta)
+        
+    Why:
+        This function is used to generate a preprocessed dataframe and its metadata
+        for further machine learning tasks, ensuring proper handling of column types.
+    """
     df_copy = df_original.copy()
     # if target_column in df_original.columns:
     #     df_copy.rename(columns={target_column: 'target'}, inplace=True)
@@ -27,6 +49,27 @@ def get_meta(df_original, target_column, force_col_types=None):
     return data, meta
 
 def get_data(df, max_str=0.2, force_col_types=None):
+    """
+    Preprocesses the dataframe, identifying column types and handling missing values.
+
+    Args:
+        df (pd.DataFrame): The dataframe to preprocess.
+        max_str (float, optional): Maximum fraction of string values to consider a column as numerical. Default is 0.2.
+        force_col_types (dict, optional): Dictionary to force specific column types.
+
+    Returns:
+        tuple: A tuple containing the preprocessed dataframe and metadata dictionary.
+
+    Example:
+        >>> df = pd.DataFrame({'A': [1, 2, 3, 'x'], 'B': ['x', 'y', 'z', 'w']})
+        >>> data, meta = get_data(df)
+        >>> print(data)
+        >>> print(meta)
+        
+    Why:
+        This function processes the dataframe to clean and identify column types, ensuring that the data is
+        suitable for machine learning models.
+    """
     if force_col_types is None:
         force_col_types = {}
 
@@ -146,23 +189,23 @@ def str2float(x):
 
 
 
-def convert_lists_to_sets(obj):
-    if isinstance(obj, list):
-        return set(obj)
-    if isinstance(obj, dict):
-        return {key: convert_lists_to_sets(value) for key, value in obj.items()}
-    if isinstance(obj, set):
-        return {convert_lists_to_sets(item) for item in obj}
-    return obj
+# def convert_lists_to_sets(obj):
+#     if isinstance(obj, list):
+#         return set(obj)
+#     if isinstance(obj, dict):
+#         return {key: convert_lists_to_sets(value) for key, value in obj.items()}
+#     if isinstance(obj, set):
+#         return {convert_lists_to_sets(item) for item in obj}
+#     return obj
 
-def convert_sets_to_lists(obj):
-    if isinstance(obj, set):
-        return list(obj)
-    if isinstance(obj, dict):
-        return {key: convert_sets_to_lists(value) for key, value in obj.items()}
-    if isinstance(obj, list):
-        return [convert_sets_to_lists(item) for item in obj]
-    return obj
+# def convert_sets_to_lists(obj):
+#     if isinstance(obj, set):
+#         return list(obj)
+#     if isinstance(obj, dict):
+#         return {key: convert_sets_to_lists(value) for key, value in obj.items()}
+#     if isinstance(obj, list):
+#         return [convert_sets_to_lists(item) for item in obj]
+#     return obj
 
 
 
@@ -170,6 +213,28 @@ def convert_sets_to_lists(obj):
 
 
 def train_with_parameter_tuning_test(df_original, forced_types, target_column, num_iterations, csv_file_name):
+    """
+    Trains a model with parameter tuning using Optuna and CatBoost.
+
+    Args:
+        df_original (pd.DataFrame): The original dataframe.
+        forced_types (dict): Dictionary to force specific column types.
+        target_column (str): The name of the target column.
+        num_iterations (int): Number of iterations for the Optuna study.
+        csv_file_name (str): Name of the CSV file used for naming the saved model and metadata.
+
+    Returns:
+        tuple: A tuple containing a success message, target type, model type, performance score, model path, and metadata path.
+
+    Example:
+        >>> df = pd.DataFrame({'A': [1, 2, 3], 'B': ['x', 'y', 'z'], 'target': [0, 1, 0]})
+        >>> result = train_with_parameter_tuning_test(df, {}, 'target', 10, 'data.csv')
+        >>> print(result)
+        
+    Why:
+        This function trains a CatBoost model with parameter tuning using Optuna,
+        saves the trained model and metadata, and returns the performance metrics.
+    """
     target_type = None
     model_type = None
     performance_score = None
@@ -229,6 +294,26 @@ def train_with_parameter_tuning_test(df_original, forced_types, target_column, n
 
 
 def split_train_test_pool(data, meta, target_column):
+    """
+    Splits the data into training and testing pools for CatBoost.
+
+    Args:
+        data (pd.DataFrame): The preprocessed dataframe.
+        meta (dict): Metadata dictionary.
+        target_column (str): The name of the target column.
+
+    Returns:
+        tuple: A tuple containing the training pool, testing pool, training features, testing features, training labels, testing labels, and categorical features.
+
+    Example:
+        >>> df = pd.DataFrame({'A': [1, 2, 3], 'B': ['x', 'y', 'z'], 'target': [0, 1, 0]})
+        >>> data, meta = get_data(df)
+        >>> split_train_test_pool(data, meta, 'target')
+        
+    Why:
+        This function splits the data into training and testing sets, creates CatBoost pools,
+        and identifies categorical features.
+    """
     X = data.drop(target_column, axis=1)
     y = data[target_column]
     X = X.applymap(lambda x: str(x) if isinstance(x, float) else x)
@@ -242,6 +327,28 @@ def split_train_test_pool(data, meta, target_column):
 
 
 def Parameter_tuning(trial, is_target_categorical, train_pool, test_pool):
+    """
+    Conducts parameter tuning for CatBoost using Optuna.
+
+    Args:
+        trial (optuna.trial.Trial): The trial object for the current iteration.
+        is_target_categorical (bool): Whether the target is categorical.
+        train_pool (catboost.Pool): The training pool for CatBoost.
+        test_pool (catboost.Pool): The testing pool for CatBoost.
+
+    Returns:
+        float: The performance score of the model on the test set.
+
+    Example:
+        >>> from optuna import create_study
+        >>> study = create_study(direction="maximize")
+        >>> study.optimize(lambda trial: Parameter_tuning(trial, True, train_pool, test_pool), n_trials=10)
+        
+    Why:
+        This function tunes the hyperparameters of a CatBoost model using Optuna,
+        optimizing the model's performance.
+    """
+
     print("Training with parameters: ", trial)
 
     # train_pool, test_pool, X_train, X_test, y_train, y_test, cat_features = split_train_test_pool(data, meta)
@@ -272,6 +379,27 @@ def Parameter_tuning(trial, is_target_categorical, train_pool, test_pool):
 
 
 def calculate_model_performance(model, is_target_categorical, test_pool):
+    """
+    Calculates the performance of the trained model on the test set.
+
+    Args:
+        model (catboost.CatBoostClassifier or catboost.CatBoostRegressor): The trained model.
+        is_target_categorical (bool): Whether the target is categorical.
+        test_pool (catboost.Pool): The testing pool for CatBoost.
+
+    Returns:
+        float: The performance score of the model on the test set.
+
+    Example:
+        >>> model = CatBoostClassifier()
+        >>> score = calculate_model_performance(model, True, test_pool)
+        >>> print(score)
+        
+    Why:
+        This function evaluates the performance of the trained model using appropriate metrics
+        based on whether the target variable is categorical or numerical.
+    """
+
     y_true = test_pool.get_label()
 
     predictions = model.predict(test_pool)
@@ -293,6 +421,25 @@ def calculate_model_performance(model, is_target_categorical, test_pool):
 
 
 def compare_metadata(new_metadata, metadata_path):
+    """
+    Compares new metadata with existing metadata.
+
+    Args:
+        new_metadata (dict): The new metadata dictionary.
+        metadata_path (str): The path to the existing metadata file.
+
+    Returns:
+        bool: True if the metadata matches, False otherwise.
+
+    Example:
+        >>> new_meta = {'A': {'is_cat': True, 'fill': 'x', 'conv': {1: 'x', 2: 'y', 3: 'z'}}}
+        >>> path = 'path/to/meta.json'
+        >>> compare_metadata(new_meta, path)
+        
+    Why:
+        This function is used to check if the new metadata matches the existing metadata,
+        which can be useful for verifying consistency in data preprocessing steps.
+    """
     with open(metadata_path, 'r') as f:
         old_metadata = json.load(f)
     old_metadata = convert_lists_to_sets(old_metadata)
@@ -317,6 +464,26 @@ def compare_metadata(new_metadata, metadata_path):
 
 
 def trans_data(df, meta, reverse=False):
+    """
+    Transforms the dataframe according to the metadata.
+
+    Args:
+        df (pd.DataFrame): The dataframe to transform.
+        meta (dict): Metadata dictionary containing transformation rules.
+        reverse (bool, optional): If True, applies reverse transformation. Default is False.
+
+    Returns:
+        pd.DataFrame: The transformed dataframe.
+
+    Example:
+        >>> df = pd.DataFrame({'A': [1, 2, 3], 'B': ['x', 'y', 'z']})
+        >>> meta = {'A': {'is_cat': True, 'fill': 'x', 'conv': {1: 'x', 2: 'y', 3: 'z'}}}
+        >>> trans_data(df, meta)
+        
+    Why:
+        This function applies transformations to the dataframe based on metadata, ensuring
+        that the data is in the correct format for prediction or analysis.
+    """
     conv_columns = df.columns
     df_res = pd.DataFrame(columns=conv_columns)
     for col in meta:
@@ -344,6 +511,30 @@ def trans_data(df, meta, reverse=False):
     return df_res
 
 def make_prediction(input_df, model_path, meta_path, target_column):
+    """
+    Makes predictions on the input dataframe using the trained model and metadata.
+
+    Args:
+        input_df (pd.DataFrame): The input dataframe for making predictions.
+        model_path (str): The path to the trained model file.
+        meta_path (str): The path to the metadata file.
+        target_column (str): The name of the target column.
+
+    Returns:
+        pd.DataFrame: The dataframe with predictions.
+
+    Example:
+        >>> input_df = pd.DataFrame({'A': [1, 2, 3], 'B': ['x', 'y', 'z']})
+        >>> model_path = 'path/to/model.pkl'
+        >>> meta_path = 'path/to/meta.json'
+        >>> target_column = 'target'
+        >>> result_df = make_prediction(input_df, model_path, meta_path, target_column)
+        >>> print(result_df)
+        
+    Why:
+        This function uses the trained model and metadata to make predictions on new data,
+        ensuring the predictions are made in a consistent manner with the training process.
+    """
     with open(meta_path, 'r') as file:
         loaded_meta = json.load(file)
 
