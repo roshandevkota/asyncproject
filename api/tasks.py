@@ -16,6 +16,22 @@ def add(x, y):
 
 @shared_task
 def process_file(file_path):
+    """
+    Processes a CSV file to extract metadata.
+
+    Args:
+        file_path (str): The path to the CSV file.
+
+    Returns:
+        dict: A dictionary containing the columns and delimiter of the CSV file.
+
+    Raises:
+        Exception: If there is an error processing the file.
+
+    Example:
+        >>> process_file.delay('/path/to/file.csv')
+        {'columns': ['column1', 'column2'], 'delimiter': ','}
+    """
     try:
         logger.info(f"Processing file: {file_path}")
         df = pd.read_csv(file_path)
@@ -32,6 +48,22 @@ def process_file(file_path):
 
 @shared_task
 def profile_data(file_path):
+    """
+    Generates a profiling report for a CSV file.
+
+    Args:
+        file_path (str): The path to the CSV file.
+
+    Returns:
+        str: The path to the generated profiling report.
+
+    Raises:
+        Exception: If there is an error profiling the data.
+
+    Example:
+        >>> profile_data.delay('/path/to/file.csv')
+        '/path/to/profile_report.html'
+    """
     try:
         logger.info(f"Profiling data for file: {file_path}")
         df = pd.read_csv(file_path)
@@ -46,6 +78,23 @@ def profile_data(file_path):
 
 @shared_task
 def train_model(file_path, target_column):
+    """
+    Trains a RandomForest model on the provided CSV file and target column.
+
+    Args:
+        file_path (str): The path to the CSV file.
+        target_column (str): The name of the target column.
+
+    Returns:
+        dict: A dictionary containing the model's training and test scores, and the path to the saved model.
+
+    Raises:
+        Exception: If there is an error training the model.
+
+    Example:
+        >>> train_model.delay('/path/to/file.csv', 'target')
+        {'metadata': {'train_score': 0.95, 'test_score': 0.90}, 'model_path': '/path/to/model.pkl'}
+    """
     try:
         logger.info(f"Training model with file: {file_path} and target column: {target_column}")
         df = pd.read_csv(file_path)
@@ -70,6 +119,23 @@ def train_model(file_path, target_column):
 
 @shared_task
 def predict(file_path, model_path):
+    """
+    Uses a trained model to make predictions on a CSV file.
+
+    Args:
+        file_path (str): The path to the CSV file.
+        model_path (str): The path to the trained model file.
+
+    Returns:
+        str: The path to the CSV file containing the predictions.
+
+    Raises:
+        Exception: If there is an error making predictions.
+
+    Example:
+        >>> predict.delay('/path/to/file.csv', '/path/to/model.pkl')
+        '/path/to/predictions.csv'
+    """
     try:
         logger.info(f"Making predictions with file: {file_path} and model: {model_path}")
         df = pd.read_csv(file_path)
