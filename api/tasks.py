@@ -149,7 +149,3 @@ def predict(file_path, model_path):
     except Exception as e:
         logger.error(f"Error making predictions: {e}")
         raise
-
-@shared_task
-def add(x, y):
-    return x + y

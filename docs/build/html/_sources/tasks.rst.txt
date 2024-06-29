@@ -1,0 +1,11 @@
+Tasks
+============
+
+.. automodule:: api.tasks
+    :noindex:
+
+
+.. autofunction:: api.tasks.process_file
+.. autofunction:: api.tasks.profile_data
+.. autofunction:: api.tasks.train_model
+.. autofunction:: api.tasks.predict

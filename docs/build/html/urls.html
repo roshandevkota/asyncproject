@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>URLs &mdash; AI Project 2024 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=6fefd858"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Tasks" href="tasks.html" />
+    <link rel="prev" title="Welcome to AI Project’s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            AI Project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">URLs</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#module-asyncproject.urls">asyncproject URLs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-api.urls">api URLs</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api.urls.urlpatterns"><code class="docutils literal notranslate"><span class="pre">urlpatterns</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="tasks.html">Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Views</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">Utility Functions</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">AI Project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">URLs</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/urls.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="urls">
+<h1>URLs<a class="headerlink" href="#urls" title="Link to this heading"></a></h1>
+<section id="module-asyncproject.urls">
+<span id="asyncproject-urls"></span><h2>asyncproject URLs<a class="headerlink" href="#module-asyncproject.urls" title="Link to this heading"></a></h2>
+<p>URL configuration for asyncproject.</p>
+</section>
+<section id="module-api.urls">
+<span id="api-urls"></span><h2>api URLs<a class="headerlink" href="#module-api.urls" title="Link to this heading"></a></h2>
+<dl class="py data">
+<dt class="sig sig-object py" id="api.urls.urlpatterns">
+<span class="sig-prename descclassname"><span class="pre">api.urls.</span></span><span class="sig-name descname"><span class="pre">urlpatterns</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">[&lt;URLPattern</span> <span class="pre">'upload/'</span> <span class="pre">[name='file-upload']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'profile/'</span> <span class="pre">[name='profile-data']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'train/'</span> <span class="pre">[name='train-model']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'get_training_status/&lt;uuid:file_id&gt;/'</span> <span class="pre">[name='get_training_status']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'predict/'</span> <span class="pre">[name='predict']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'test/'</span> <span class="pre">[name='test-api']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'task_status/&lt;str:task_id&gt;/'</span> <span class="pre">[name='task-status']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'data_preview/'</span> <span class="pre">[name='data-preview']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'get_metadata/'</span> <span class="pre">[name='get-metadata']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'update_metadata/'</span> <span class="pre">[name='update-metadata']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'get_stored_metadata/'</span> <span class="pre">[name='get-stored-metadata']&gt;,</span> <span class="pre">&lt;URLPattern</span> <span class="pre">'get_columns/'</span> <span class="pre">[name='get-columns']&gt;]</span></em><a class="headerlink" href="#api.urls.urlpatterns" title="Link to this definition"></a></dt>
+<dd><p>URL Configuration</p>
+<dl class="simple">
+<dt>The <cite>urlpatterns</cite> list routes URLs to views. For more information please see:</dt><dd><p><a class="reference external" href="https://docs.djangoproject.com/en/4.0/topics/http/urls/">https://docs.djangoproject.com/en/4.0/topics/http/urls/</a></p>
+</dd>
+<dt>Routes:</dt><dd><ul class="simple">
+<li><dl class="simple">
+<dt><strong>upload/</strong>:</dt><dd><ul>
+<li><p><strong>Description</strong>: Uploads a file and returns metadata.</p></li>
+<li><p><strong>View</strong>: <a class="reference internal" href="views.html#api.views.FileUploadView" title="api.views.FileUploadView"><code class="xref py py-class docutils literal notranslate"><span class="pre">FileUploadView</span></code></a></p></li>
+<li><p><strong>Method</strong>: POST</p></li>
+<li><p><strong>Request</strong>: multipart/form-data</p></li>
+<li><p><strong>Response</strong>: JSON</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>profile/</strong>:</dt><dd><ul>
+<li><p><strong>Description</strong>: Generates a profiling report for the uploaded data.</p></li>
+<li><p><strong>View</strong>: <a class="reference internal" href="views.html#api.views.ProfileDataView" title="api.views.ProfileDataView"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProfileDataView</span></code></a></p></li>
+<li><p><strong>Method</strong>: POST</p></li>
+<li><p><strong>Request</strong>: JSON</p></li>
+<li><p><strong>Response</strong>: JSON</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>train/</strong>:</dt><dd><ul>
+<li><p><strong>Description</strong>: Trains a model based on the uploaded data.</p></li>
+<li><p><strong>View</strong>: <a class="reference internal" href="views.html#api.views.TrainModelView" title="api.views.TrainModelView"><code class="xref py py-class docutils literal notranslate"><span class="pre">TrainModelView</span></code></a></p></li>
+<li><p><strong>Method</strong>: POST</p></li>
+<li><p><strong>Request</strong>: JSON</p></li>
+<li><p><strong>Response</strong>: JSON</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>get_training_status/&lt;uuid:file_id&gt;/</strong>:</dt><dd><ul>
+<li><p><strong>Description</strong>: Retrieves the training status of the model.</p></li>
+<li><p><strong>View</strong>: <a class="reference internal" href="views.html#api.views.GetTrainingStatusView" title="api.views.GetTrainingStatusView"><code class="xref py py-class docutils literal notranslate"><span class="pre">GetTrainingStatusView</span></code></a></p></li>
+<li><p><strong>Method</strong>: GET</p></li>
+<li><p><strong>Response</strong>: JSON</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>predict/</strong>:</dt><dd><ul>
+<li><p><strong>Description</strong>: Makes predictions based on the trained model.</p></li>
+<li><p><strong>View</strong>: <a class="reference internal" href="views.html#api.views.PredictView" title="api.views.PredictView"><code class="xref py py-class docutils literal notranslate"><span class="pre">PredictView</span></code></a></p></li>
+<li><p><strong>Method</strong>: POST</p></li>
+<li><p><strong>Request</strong>: multipart/form-data or JSON</p></li>
+<li><p><strong>Response</strong>: HTML</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>test/</strong>:</dt><dd><ul>
+<li><p><strong>Description</strong>: A simple test endpoint to ensure the API is working.</p></li>
+<li><p><strong>View</strong>: <a class="reference internal" href="views.html#api.views.TestView" title="api.views.TestView"><code class="xref py py-class docutils literal notranslate"><span class="pre">TestView</span></code></a></p></li>
+<li><p><strong>Method</strong>: POST</p></li>
+<li><p><strong>Response</strong>: JSON</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>task_status/&lt;str:task_id&gt;/</strong>:</dt><dd><ul>
+<li><p><strong>Description</strong>: Checks the status of a specific task.</p></li>
+<li><p><strong>View</strong>: <a class="reference internal" href="views.html#api.views.TaskStatusView" title="api.views.TaskStatusView"><code class="xref py py-class docutils literal notranslate"><span class="pre">TaskStatusView</span></code></a></p></li>
+<li><p><strong>Method</strong>: GET</p></li>
+<li><p><strong>Response</strong>: JSON</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>data_preview/</strong>:</dt><dd><ul>
+<li><p><strong>Description</strong>: Provides a preview of the uploaded data.</p></li>
+<li><p><strong>View</strong>: <a class="reference internal" href="views.html#api.views.DataPreviewView" title="api.views.DataPreviewView"><code class="xref py py-class docutils literal notranslate"><span class="pre">DataPreviewView</span></code></a></p></li>
+<li><p><strong>Method</strong>: POST</p></li>
+<li><p><strong>Request</strong>: JSON</p></li>
+<li><p><strong>Response</strong>: JSON</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>get_metadata/</strong>:</dt><dd><ul>
+<li><p><strong>Description</strong>: Fetches metadata of the uploaded data.</p></li>
+<li><p><strong>View</strong>: <a class="reference internal" href="views.html#api.views.GetMetadataView" title="api.views.GetMetadataView"><code class="xref py py-class docutils literal notranslate"><span class="pre">GetMetadataView</span></code></a></p></li>
+<li><p><strong>Method</strong>: POST</p></li>
+<li><p><strong>Request</strong>: JSON</p></li>
+<li><p><strong>Response</strong>: JSON</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>update_metadata/</strong>:</dt><dd><ul>
+<li><p><strong>Description</strong>: Updates the metadata of the uploaded data.</p></li>
+<li><p><strong>View</strong>: <a class="reference internal" href="views.html#api.views.UpdateMetadataView" title="api.views.UpdateMetadataView"><code class="xref py py-class docutils literal notranslate"><span class="pre">UpdateMetadataView</span></code></a></p></li>
+<li><p><strong>Method</strong>: POST</p></li>
+<li><p><strong>Request</strong>: JSON</p></li>
+<li><p><strong>Response</strong>: JSON</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>get_stored_metadata/</strong>:</dt><dd><ul>
+<li><p><strong>Description</strong>: Retrieves stored metadata of the uploaded data.</p></li>
+<li><p><strong>View</strong>: <a class="reference internal" href="views.html#api.views.GetStoredMetadataView" title="api.views.GetStoredMetadataView"><code class="xref py py-class docutils literal notranslate"><span class="pre">GetStoredMetadataView</span></code></a></p></li>
+<li><p><strong>Method</strong>: GET</p></li>
+<li><p><strong>Response</strong>: JSON</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+<li><dl class="simple">
+<dt><strong>get_columns/</strong>:</dt><dd><ul>
+<li><p><strong>Description</strong>: Retrieves the column names of the uploaded data.</p></li>
+<li><p><strong>View</strong>: <a class="reference internal" href="views.html#api.views.ColumnListView" title="api.views.ColumnListView"><code class="xref py py-class docutils literal notranslate"><span class="pre">ColumnListView</span></code></a></p></li>
+<li><p><strong>Method</strong>: POST</p></li>
+<li><p><strong>Request</strong>: JSON</p></li>
+<li><p><strong>Response</strong>: JSON</p></li>
+</ul>
+</dd>
+</dl>
+</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to AI Project’s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="tasks.html" class="btn btn-neutral float-right" title="Tasks" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, KinSYS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

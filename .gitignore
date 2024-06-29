@@ -4,8 +4,11 @@ db.sqlite3
 /media/uploads
 
 /catboost_info
-/docs
-
+/docs/source
+/docs/make.bat
+/docs/Makefile
+/docs/build/doctrees
+/docs/build/_sources
 
 # Ignore __pycache__ directories and compiled Python files
 __pycache__/

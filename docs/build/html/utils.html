@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Utility Functions &mdash; AI Project 2024 documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=80d5e7a1" />
+      <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=19f00094" />
+
+  
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=6fefd858"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Views" href="views.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            AI Project
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="urls.html">URLs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tasks.html">Tasks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="views.html">Views</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Utility Functions</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.conversion.convert_lists_to_sets"><code class="docutils literal notranslate"><span class="pre">convert_lists_to_sets()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.conversion.convert_sets_to_lists"><code class="docutils literal notranslate"><span class="pre">convert_sets_to_lists()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.delimiter.detect_separator"><code class="docutils literal notranslate"><span class="pre">detect_separator()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.delimiter.detect_separator_content"><code class="docutils literal notranslate"><span class="pre">detect_separator_content()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.delimiter.load_data_dynamic"><code class="docutils literal notranslate"><span class="pre">load_data_dynamic()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.delimiter.read_excel_file"><code class="docutils literal notranslate"><span class="pre">read_excel_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.delimiter.read_text_or_csv"><code class="docutils literal notranslate"><span class="pre">read_text_or_csv()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.json_file.read_json"><code class="docutils literal notranslate"><span class="pre">read_json()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.json_file.write_json"><code class="docutils literal notranslate"><span class="pre">write_json()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.trainingUtil.Parameter_tuning"><code class="docutils literal notranslate"><span class="pre">Parameter_tuning()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.trainingUtil.calculate_model_performance"><code class="docutils literal notranslate"><span class="pre">calculate_model_performance()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.trainingUtil.compare_metadata"><code class="docutils literal notranslate"><span class="pre">compare_metadata()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.trainingUtil.get_data"><code class="docutils literal notranslate"><span class="pre">get_data()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.trainingUtil.get_meta"><code class="docutils literal notranslate"><span class="pre">get_meta()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.trainingUtil.make_prediction"><code class="docutils literal notranslate"><span class="pre">make_prediction()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.trainingUtil.split_train_test_pool"><code class="docutils literal notranslate"><span class="pre">split_train_test_pool()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.trainingUtil.str2float"><code class="docutils literal notranslate"><span class="pre">str2float()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.trainingUtil.train_with_parameter_tuning_test"><code class="docutils literal notranslate"><span class="pre">train_with_parameter_tuning_test()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#api.utils.trainingUtil.trans_data"><code class="docutils literal notranslate"><span class="pre">trans_data()</span></code></a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">AI Project</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Utility Functions</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/utils.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-api.utils.conversion">
+<span id="utility-functions"></span><h1>Utility Functions<a class="headerlink" href="#module-api.utils.conversion" title="Link to this heading"></a></h1>
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.conversion.convert_lists_to_sets">
+<span class="sig-prename descclassname"><span class="pre">api.utils.conversion.</span></span><span class="sig-name descname"><span class="pre">convert_lists_to_sets</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.conversion.convert_lists_to_sets" title="Link to this definition"></a></dt>
+<dd><p>Recursively converts lists to sets within a nested structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>obj</strong> – The object to convert.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The converted object with lists turned into sets.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nested_list</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">]}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">convert_lists_to_sets</span><span class="p">(</span><span class="n">nested_list</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="go">{&#39;a&#39;: {1, 2, 3}, &#39;b&#39;: {&#39;c&#39;: {4, 5, 6}}}</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Why:</dt><dd><p>This function is useful for converting lists to sets within complex
+nested structures, making them more suitable for certain operations.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.conversion.convert_sets_to_lists">
+<span class="sig-prename descclassname"><span class="pre">api.utils.conversion.</span></span><span class="sig-name descname"><span class="pre">convert_sets_to_lists</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">obj</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.conversion.convert_sets_to_lists" title="Link to this definition"></a></dt>
+<dd><p>Recursively converts sets to lists within a nested structure.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>obj</strong> – The object to convert.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The converted object with sets turned into lists.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">nested_set</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;a&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span> <span class="s1">&#39;b&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;c&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">}}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">convert_sets_to_lists</span><span class="p">(</span><span class="n">nested_set</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+<span class="go">{&#39;a&#39;: [1, 2, 3], &#39;b&#39;: {&#39;c&#39;: [4, 5, 6]}}</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Why:</dt><dd><p>This function is useful for converting sets to lists within complex
+nested structures, making them more suitable for serialization.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function" id="module-api.utils.delimiter">
+<dt class="sig sig-object py" id="api.utils.delimiter.detect_separator">
+<span class="sig-prename descclassname"><span class="pre">api.utils.delimiter.</span></span><span class="sig-name descname"><span class="pre">detect_separator</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.delimiter.detect_separator" title="Link to this definition"></a></dt>
+<dd><p>Detects the delimiter used in a text or CSV file.</p>
+<p>This function reads the first few lines of a file and checks for consistency
+of potential delimiters (comma, tab, semicolon, space). It returns the detected
+delimiter if one is found to be consistent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – The path to the file whose delimiter needs to be detected.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>str or None</em> – The detected delimiter, or None if no consistent delimiter is found.</p></li>
+<li><p><em>Why</em></p></li>
+<li><p><em>—</em></p></li>
+<li><p><em>Automatically detecting the delimiter in a text or CSV file is useful</em></p></li>
+<li><p><em>for handling files from different sources without needing prior knowledge</em></p></li>
+<li><p><em>of their structure.</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">detect_separator</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">)</span>
+<span class="go">&#39;,&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.delimiter.detect_separator_content">
+<span class="sig-prename descclassname"><span class="pre">api.utils.delimiter.</span></span><span class="sig-name descname"><span class="pre">detect_separator_content</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_content</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.delimiter.detect_separator_content" title="Link to this definition"></a></dt>
+<dd><p>Detects the delimiter used in a string containing file content.</p>
+<p>This function analyzes the first few lines of a string and checks for consistency
+of potential delimiters (comma, tab, semicolon, space). It returns the detected
+delimiter if one is found to be consistent.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_content</strong> (<em>str</em>) – The content of the file as a string.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>str or None</em> – The detected delimiter, or None if no consistent delimiter is found.</p></li>
+<li><p><em>Why</em></p></li>
+<li><p><em>—</em></p></li>
+<li><p><em>Automatically detecting the delimiter in a string containing file content is useful</em></p></li>
+<li><p><em>for processing data in memory, such as when files are uploaded through a web interface.</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">file_content</span> <span class="o">=</span> <span class="s2">&quot;col1,col2,col3</span><span class="se">\n</span><span class="s2">1,2,3</span><span class="se">\n</span><span class="s2">4,5,6&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">detect_separator_content</span><span class="p">(</span><span class="n">file_content</span><span class="p">)</span>
+<span class="go">&#39;,&#39;</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.delimiter.load_data_dynamic">
+<span class="sig-prename descclassname"><span class="pre">api.utils.delimiter.</span></span><span class="sig-name descname"><span class="pre">load_data_dynamic</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.delimiter.load_data_dynamic" title="Link to this definition"></a></dt>
+<dd><p>Dynamically loads data from an Excel, CSV, or text file into a pandas DataFrame.</p>
+<p>This function determines the file type based on its extension and
+uses the appropriate function to read the file. It supports Excel files (both .xlsx and .xls)
+and text/CSV files. For text/CSV files, it can optionally detect the delimiter.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<em>str</em>) – The path to the file to be read.</p></li>
+<li><p><strong>delimiter</strong> (<em>str</em><em>, </em><em>optional</em>) – The delimiter to use for text/CSV files. If None, the delimiter will be detected automatically.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>pandas.DataFrame or None</em> – A DataFrame containing the data from the file, or None if there is an error
+or if the file type is unsupported.</p></li>
+<li><p><em>Why</em></p></li>
+<li><p><em>—</em></p></li>
+<li><p><em>This function provides a unified interface for loading data from different file formats,</em></p></li>
+<li><p><em>simplifying the data ingestion process in applications that need to handle multiple file types.</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">load_data_dynamic</span><span class="p">(</span><span class="s2">&quot;data.xlsx&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">load_data_dynamic</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">)</span>
+<span class="go">Successfully read text/CSV file data.csv with delimiter &#39;,&#39;.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.delimiter.read_excel_file">
+<span class="sig-prename descclassname"><span class="pre">api.utils.delimiter.</span></span><span class="sig-name descname"><span class="pre">read_excel_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.delimiter.read_excel_file" title="Link to this definition"></a></dt>
+<dd><p>Reads an Excel file and returns its content as a pandas DataFrame.</p>
+<p>This function reads an Excel file and checks if it contains a single sheet.
+If the file has more than one sheet, it prints an error message and returns None.
+If the file has a single sheet, it reads the sheet into a pandas DataFrame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>file_path</strong> (<em>str</em>) – The path to the Excel file to be read.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>pandas.DataFrame or None</em> – A DataFrame containing the data from the Excel sheet, or None if there is an error
+or if the file contains multiple sheets.</p></li>
+<li><p><em>Why</em></p></li>
+<li><p><em>—</em></p></li>
+<li><p><em>This function ensures that only single-sheet Excel files are processed,</em></p></li>
+<li><p><em>simplifying the data loading process for applications that do not require multi-sheet</em></p></li>
+<li><p><em>support. It also provides error handling to manage file reading issues gracefully.</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">read_excel_file</span><span class="p">(</span><span class="s2">&quot;data.xlsx&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+<span class="go">Error: The Excel file &#39;data.xlsx&#39; contains multiple sheets. Only single-sheet files are supported.</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.delimiter.read_text_or_csv">
+<span class="sig-prename descclassname"><span class="pre">api.utils.delimiter.</span></span><span class="sig-name descname"><span class="pre">read_text_or_csv</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">delimiter</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">','</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.delimiter.read_text_or_csv" title="Link to this definition"></a></dt>
+<dd><p>Reads a text or CSV file with various potential delimiters and returns its content as a pandas DataFrame.</p>
+<p>This function attempts to read a text or CSV file using a list of potential delimiters
+(comma, tab, semicolon, space). If it successfully reads the file with any of these delimiters,
+it returns a DataFrame. Otherwise, it prints an error message and returns None.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>file_path</strong> (<em>str</em>) – The path to the text or CSV file to be read.</p></li>
+<li><p><strong>delimiter</strong> (<em>str</em><em>, </em><em>optional</em>) – The initial delimiter to try. Default is comma (,).</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p><em>pandas.DataFrame or None</em> – A DataFrame containing the data from the file, or None if there is an error
+or if no valid delimiter is found.</p></li>
+<li><p><em>Why</em></p></li>
+<li><p><em>—</em></p></li>
+<li><p><em>This function provides flexibility in reading text or CSV files with various delimiters,</em></p></li>
+<li><p><em>which is useful when dealing with data from different sources where the delimiter is not known in advance.</em></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+<p class="rubric">Examples</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">read_text_or_csv</span><span class="p">(</span><span class="s2">&quot;data.csv&quot;</span><span class="p">)</span>
+<span class="go">Successfully read text/CSV file data.csv with delimiter &#39;,&#39;.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">if</span> <span class="n">df</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+<span class="gp">... </span>    <span class="nb">print</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">())</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function" id="module-api.utils.json_file">
+<dt class="sig sig-object py" id="api.utils.json_file.read_json">
+<span class="sig-prename descclassname"><span class="pre">api.utils.json_file.</span></span><span class="sig-name descname"><span class="pre">read_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.json_file.read_json" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.json_file.write_json">
+<span class="sig-prename descclassname"><span class="pre">api.utils.json_file.</span></span><span class="sig-name descname"><span class="pre">write_json</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">file_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.json_file.write_json" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function" id="module-api.utils.trainingUtil">
+<dt class="sig sig-object py" id="api.utils.trainingUtil.Parameter_tuning">
+<span class="sig-prename descclassname"><span class="pre">api.utils.trainingUtil.</span></span><span class="sig-name descname"><span class="pre">Parameter_tuning</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">trial</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_target_categorical</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">train_pool</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_pool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.trainingUtil.Parameter_tuning" title="Link to this definition"></a></dt>
+<dd><p>Conducts parameter tuning for CatBoost using Optuna.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>trial</strong> (<em>optuna.trial.Trial</em>) – The trial object for the current iteration.</p></li>
+<li><p><strong>is_target_categorical</strong> (<em>bool</em>) – Whether the target is categorical.</p></li>
+<li><p><strong>train_pool</strong> (<em>catboost.Pool</em>) – The training pool for CatBoost.</p></li>
+<li><p><strong>test_pool</strong> (<em>catboost.Pool</em>) – The testing pool for CatBoost.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The performance score of the model on the test set.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">optuna</span> <span class="kn">import</span> <span class="n">create_study</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">study</span> <span class="o">=</span> <span class="n">create_study</span><span class="p">(</span><span class="n">direction</span><span class="o">=</span><span class="s2">&quot;maximize&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">study</span><span class="o">.</span><span class="n">optimize</span><span class="p">(</span><span class="k">lambda</span> <span class="n">trial</span><span class="p">:</span> <span class="n">Parameter_tuning</span><span class="p">(</span><span class="n">trial</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">train_pool</span><span class="p">,</span> <span class="n">test_pool</span><span class="p">),</span> <span class="n">n_trials</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Why:</dt><dd><p>This function tunes the hyperparameters of a CatBoost model using Optuna,
+optimizing the model’s performance.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.trainingUtil.calculate_model_performance">
+<span class="sig-prename descclassname"><span class="pre">api.utils.trainingUtil.</span></span><span class="sig-name descname"><span class="pre">calculate_model_performance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">model</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">is_target_categorical</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">test_pool</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.trainingUtil.calculate_model_performance" title="Link to this definition"></a></dt>
+<dd><p>Calculates the performance of the trained model on the test set.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>model</strong> (<em>catboost.CatBoostClassifier</em><em> or </em><em>catboost.CatBoostRegressor</em>) – The trained model.</p></li>
+<li><p><strong>is_target_categorical</strong> (<em>bool</em>) – Whether the target is categorical.</p></li>
+<li><p><strong>test_pool</strong> (<em>catboost.Pool</em>) – The testing pool for CatBoost.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The performance score of the model on the test set.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">model</span> <span class="o">=</span> <span class="n">CatBoostClassifier</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">score</span> <span class="o">=</span> <span class="n">calculate_model_performance</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="n">test_pool</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">score</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Why:</dt><dd><p>This function evaluates the performance of the trained model using appropriate metrics
+based on whether the target variable is categorical or numerical.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.trainingUtil.compare_metadata">
+<span class="sig-prename descclassname"><span class="pre">api.utils.trainingUtil.</span></span><span class="sig-name descname"><span class="pre">compare_metadata</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">new_metadata</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">metadata_path</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.trainingUtil.compare_metadata" title="Link to this definition"></a></dt>
+<dd><p>Compares new metadata with existing metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>new_metadata</strong> (<em>dict</em>) – The new metadata dictionary.</p></li>
+<li><p><strong>metadata_path</strong> (<em>str</em>) – The path to the existing metadata file.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>True if the metadata matches, False otherwise.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">new_meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;is_cat&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;fill&#39;</span><span class="p">:</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;conv&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;z&#39;</span><span class="p">}}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path</span> <span class="o">=</span> <span class="s1">&#39;path/to/meta.json&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">compare_metadata</span><span class="p">(</span><span class="n">new_meta</span><span class="p">,</span> <span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Why:</dt><dd><p>This function is used to check if the new metadata matches the existing metadata,
+which can be useful for verifying consistency in data preprocessing steps.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.trainingUtil.get_data">
+<span class="sig-prename descclassname"><span class="pre">api.utils.trainingUtil.</span></span><span class="sig-name descname"><span class="pre">get_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">max_str</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">0.2</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_col_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.trainingUtil.get_data" title="Link to this definition"></a></dt>
+<dd><p>Preprocesses the dataframe, identifying column types and handling missing values.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The dataframe to preprocess.</p></li>
+<li><p><strong>max_str</strong> (<em>float</em><em>, </em><em>optional</em>) – Maximum fraction of string values to consider a column as numerical. Default is 0.2.</p></li>
+<li><p><strong>force_col_types</strong> (<em>dict</em><em>, </em><em>optional</em>) – Dictionary to force specific column types.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the preprocessed dataframe and metadata dictionary.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="s1">&#39;x&#39;</span><span class="p">],</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">get_data</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Why:</dt><dd><p>This function processes the dataframe to clean and identify column types, ensuring that the data is
+suitable for machine learning models.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.trainingUtil.get_meta">
+<span class="sig-prename descclassname"><span class="pre">api.utils.trainingUtil.</span></span><span class="sig-name descname"><span class="pre">get_meta</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_original</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">force_col_types</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.trainingUtil.get_meta" title="Link to this definition"></a></dt>
+<dd><p>Generates metadata and preprocessed data from the original dataframe.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_original</strong> (<em>pd.DataFrame</em>) – The original dataframe.</p></li>
+<li><p><strong>target_column</strong> (<em>str</em>) – The name of the target column.</p></li>
+<li><p><strong>force_col_types</strong> (<em>dict</em><em>, </em><em>optional</em>) – Dictionary to force specific column types.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the preprocessed dataframe and metadata dictionary.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="s1">&#39;target&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">get_meta</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">meta</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Why:</dt><dd><p>This function is used to generate a preprocessed dataframe and its metadata
+for further machine learning tasks, ensuring proper handling of column types.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.trainingUtil.make_prediction">
+<span class="sig-prename descclassname"><span class="pre">api.utils.trainingUtil.</span></span><span class="sig-name descname"><span class="pre">make_prediction</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">model_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta_path</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.trainingUtil.make_prediction" title="Link to this definition"></a></dt>
+<dd><p>Makes predictions on the input dataframe using the trained model and metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>input_df</strong> (<em>pd.DataFrame</em>) – The input dataframe for making predictions.</p></li>
+<li><p><strong>model_path</strong> (<em>str</em>) – The path to the trained model file.</p></li>
+<li><p><strong>meta_path</strong> (<em>str</em>) – The path to the metadata file.</p></li>
+<li><p><strong>target_column</strong> (<em>str</em>) – The name of the target column.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The dataframe with predictions.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">input_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">model_path</span> <span class="o">=</span> <span class="s1">&#39;path/to/model.pkl&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">meta_path</span> <span class="o">=</span> <span class="s1">&#39;path/to/meta.json&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">target_column</span> <span class="o">=</span> <span class="s1">&#39;target&#39;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result_df</span> <span class="o">=</span> <span class="n">make_prediction</span><span class="p">(</span><span class="n">input_df</span><span class="p">,</span> <span class="n">model_path</span><span class="p">,</span> <span class="n">meta_path</span><span class="p">,</span> <span class="n">target_column</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">result_df</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Why:</dt><dd><p>This function uses the trained model and metadata to make predictions on new data,
+ensuring the predictions are made in a consistent manner with the training process.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.trainingUtil.split_train_test_pool">
+<span class="sig-prename descclassname"><span class="pre">api.utils.trainingUtil.</span></span><span class="sig-name descname"><span class="pre">split_train_test_pool</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.trainingUtil.split_train_test_pool" title="Link to this definition"></a></dt>
+<dd><p>Splits the data into training and testing pools for CatBoost.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<em>pd.DataFrame</em>) – The preprocessed dataframe.</p></li>
+<li><p><strong>meta</strong> (<em>dict</em>) – Metadata dictionary.</p></li>
+<li><p><strong>target_column</strong> (<em>str</em>) – The name of the target column.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing the training pool, testing pool, training features, testing features, training labels, testing labels, and categorical features.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="s1">&#39;target&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">data</span><span class="p">,</span> <span class="n">meta</span> <span class="o">=</span> <span class="n">get_data</span><span class="p">(</span><span class="n">df</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">split_train_test_pool</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">meta</span><span class="p">,</span> <span class="s1">&#39;target&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Why:</dt><dd><p>This function splits the data into training and testing sets, creates CatBoost pools,
+and identifies categorical features.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.trainingUtil.str2float">
+<span class="sig-prename descclassname"><span class="pre">api.utils.trainingUtil.</span></span><span class="sig-name descname"><span class="pre">str2float</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">x</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.trainingUtil.str2float" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.trainingUtil.train_with_parameter_tuning_test">
+<span class="sig-prename descclassname"><span class="pre">api.utils.trainingUtil.</span></span><span class="sig-name descname"><span class="pre">train_with_parameter_tuning_test</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df_original</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">forced_types</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target_column</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">num_iterations</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">csv_file_name</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.trainingUtil.train_with_parameter_tuning_test" title="Link to this definition"></a></dt>
+<dd><p>Trains a model with parameter tuning using Optuna and CatBoost.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df_original</strong> (<em>pd.DataFrame</em>) – The original dataframe.</p></li>
+<li><p><strong>forced_types</strong> (<em>dict</em>) – Dictionary to force specific column types.</p></li>
+<li><p><strong>target_column</strong> (<em>str</em>) – The name of the target column.</p></li>
+<li><p><strong>num_iterations</strong> (<em>int</em>) – Number of iterations for the Optuna study.</p></li>
+<li><p><strong>csv_file_name</strong> (<em>str</em>) – Name of the CSV file used for naming the saved model and metadata.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>A tuple containing a success message, target type, model type, performance score, model path, and metadata path.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>tuple</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">],</span> <span class="s1">&#39;target&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">result</span> <span class="o">=</span> <span class="n">train_with_parameter_tuning_test</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="p">{},</span> <span class="s1">&#39;target&#39;</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="s1">&#39;data.csv&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Why:</dt><dd><p>This function trains a CatBoost model with parameter tuning using Optuna,
+saves the trained model and metadata, and returns the performance metrics.</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="api.utils.trainingUtil.trans_data">
+<span class="sig-prename descclassname"><span class="pre">api.utils.trainingUtil.</span></span><span class="sig-name descname"><span class="pre">trans_data</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">df</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">meta</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">reverse</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#api.utils.trainingUtil.trans_data" title="Link to this definition"></a></dt>
+<dd><p>Transforms the dataframe according to the metadata.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>df</strong> (<em>pd.DataFrame</em>) – The dataframe to transform.</p></li>
+<li><p><strong>meta</strong> (<em>dict</em>) – Metadata dictionary containing transformation rules.</p></li>
+<li><p><strong>reverse</strong> (<em>bool</em><em>, </em><em>optional</em>) – If True, applies reverse transformation. Default is False.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The transformed dataframe.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>pd.DataFrame</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">({</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;B&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="s1">&#39;z&#39;</span><span class="p">]})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">meta</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;A&#39;</span><span class="p">:</span> <span class="p">{</span><span class="s1">&#39;is_cat&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;fill&#39;</span><span class="p">:</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="s1">&#39;conv&#39;</span><span class="p">:</span> <span class="p">{</span><span class="mi">1</span><span class="p">:</span> <span class="s1">&#39;x&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">:</span> <span class="s1">&#39;y&#39;</span><span class="p">,</span> <span class="mi">3</span><span class="p">:</span> <span class="s1">&#39;z&#39;</span><span class="p">}}}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trans_data</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">meta</span><span class="p">)</span>
+</pre></div>
+</div>
+<dl class="simple">
+<dt>Why:</dt><dd><p>This function applies transformations to the dataframe based on metadata, ensuring
+that the data is in the correct format for prediction or analysis.</p>
+</dd>
+</dl>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="views.html" class="btn btn-neutral float-left" title="Views" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, KinSYS.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

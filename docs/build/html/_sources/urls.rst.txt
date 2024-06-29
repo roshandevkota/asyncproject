@@ -1,0 +1,18 @@
+URLs
+====
+
+asyncproject URLs
+-----------------
+
+.. automodule:: asyncproject.urls
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+api URLs
+--------
+
+.. automodule:: api.urls
+    :members:
+    :undoc-members:
+    :show-inheritance:
