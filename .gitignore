@@ -4,7 +4,7 @@ db.sqlite3
 /media/uploads
 
 /catboost_info
-
+/docs
 
 
 # Ignore __pycache__ directories and compiled Python files

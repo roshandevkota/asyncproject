@@ -13,7 +13,7 @@ import optuna
 from optuna.integration import CatBoostPruningCallback
 
 from collections import defaultdict
-from conversion import convert_lists_to_sets, convert_sets_to_lists
+from .conversion import convert_lists_to_sets, convert_sets_to_lists
 
 
 
